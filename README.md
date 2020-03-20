@@ -1,7 +1,10 @@
 # C# Advanced: Thread-safe data with Concurrent Collections
 This is the repository for the **LinkedIn Learning** course **C# Advanced:  Thread-safe data with Concurrent Collections**. The full course is available from [LinkedIn Learning](LICOURSEURL).
 
-
+## .NET Essentials
+.NET is a mature programming framework used around the world to build applications for every type of project.
+Our .NET Essentials courses dig deep into a sub-section of .NET, given you a long look at one segment of this ubiquitous framework.
+## This course topic
 The standard .NET collection types are not thread safe which can lead to race conditions, data corruption and unexpected exceptions in modern multi-threaded applications. This course examines how to work with the thread-safe Concurrent Collections to share data across threads and build scalable applications. By default, the collections use a smart, efficient locking mechanism to ensure writing data is not compromised. Learn how to override the default locks when necessary.
 
 ## Instructions
