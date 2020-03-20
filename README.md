@@ -1,4 +1,4 @@
-# COURSENAME
+# C# Advanced: Thread-safe data with Concurrent Collections
 This is the repository for the **LinkedIn Learning** course **C# Advanced:  Thread-safe data with Concurrent Collections**. The full course is available from [LinkedIn Learning](LICOURSEURL).
 
 
