@@ -12,7 +12,7 @@ namespace ConsoleApp {
 			{
 				try
 				{
-					Demo1();
+					Demo2();
 				} catch (Exception ex)
 				{
 
@@ -33,6 +33,21 @@ namespace ConsoleApp {
 				Console.WriteLine($"{robot.Id}: Team: {robot.Team}, {robot.Name}");
 			}
 
+			Console.ResetColor();
+			Console.WriteLine("-----------------------------");
+		}
+
+		private static void Demo2() {
+			_robots = new Queue<Robot>();
+			Task task1 = Task.Run(() => SetupTeam1());
+			Task task2 = Task.Run(() => SetupTeam2());
+			Task.WaitAll(task1, task2);
+
+			foreach (var robot in _robots)
+			{
+				Console.ForegroundColor = robot.Color;
+				Console.WriteLine($"{robot.Id}: Team: {robot.Team}, {robot.Name}");
+			}
 			Console.ResetColor();
 			Console.WriteLine("-----------------------------");
 		}
