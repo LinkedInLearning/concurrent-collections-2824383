@@ -7,7 +7,7 @@ namespace ConsoleApp {
 
 	internal class Program {
 		private static long _total;
-		private static Queue<int> _intQueue;
+		private static System.Collections.Generic.Queue<int> _intQueue;
 
 		private static void Main(string[] args) {
 			Console.WriteLine($"The correct total is 2,001,000");
