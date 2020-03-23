@@ -28,7 +28,7 @@ namespace ConsoleApp {
 			SetupTeam2();
 			foreach (var robot in _robots)
 			{
-				Console.ForegroundColor = robot.Color;
+				Console.ForegroundColor = robot.TeamColor;
 				Console.WriteLine($"{robot.Id}: Team: {robot.Team}, {robot.Name}");
 			}
 
@@ -44,7 +44,7 @@ namespace ConsoleApp {
 
 			foreach (var robot in _robots)
 			{
-				Console.ForegroundColor = robot.Color;
+				Console.ForegroundColor = robot.TeamColor;
 				Console.WriteLine($"{robot.Id}: Team: {robot.Team}, {robot.Name}");
 			}
 			Console.ResetColor();
@@ -53,28 +53,28 @@ namespace ConsoleApp {
 		private static void SetupTeam1() {
 			Robot robot;
 			Thread.Sleep(1);
-			robot = new Robot { Id = 10, Name = "Melville", Team = "Starchasers", Color = ConsoleColor.DarkCyan };
+			robot = new Robot { Id = 10, Name = "Melville", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan };
 			_robots.Enqueue(robot);
 			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 11, Name = "Squido", Team = "Starchasers", Color = ConsoleColor.DarkCyan });
+			_robots.Enqueue(new Robot { Id = 11, Name = "Squido", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
 			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 12, Name = "Frex", Team = "Starchasers", Color = ConsoleColor.DarkCyan });
+			_robots.Enqueue(new Robot { Id = 12, Name = "Frex", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
 			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 13, Name = "Belfor", Team = "Starchasers", Color = ConsoleColor.DarkCyan });
+			_robots.Enqueue(new Robot { Id = 13, Name = "Belfor", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
 			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 14, Name = "Jeeve", Team = "Starchasers", Color = ConsoleColor.DarkCyan });
+			_robots.Enqueue(new Robot { Id = 14, Name = "Jeeve", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
 		}
 		private static void SetupTeam2() {
 			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 20, Name = "Jarm", Team = "Deltron", Color = ConsoleColor.DarkYellow });
+			_robots.Enqueue(new Robot { Id = 20, Name = "Jarm", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
 			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 21, Name = "Skedle", Team = "Deltron", Color = ConsoleColor.DarkYellow });
+			_robots.Enqueue(new Robot { Id = 21, Name = "Skedle", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
 			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 22, Name = "Cellki", Team = "Deltron", Color = ConsoleColor.DarkYellow });
+			_robots.Enqueue(new Robot { Id = 22, Name = "Cellki", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
 			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 23, Name = "Treedo", Team = "Deltron", Color = ConsoleColor.DarkYellow });
+			_robots.Enqueue(new Robot { Id = 23, Name = "Treedo", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
 			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 24, Name = "Umber", Team = "Deltron", Color = ConsoleColor.DarkYellow });
+			_robots.Enqueue(new Robot { Id = 24, Name = "Umber", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
 		}
 	}
 
