@@ -8,11 +8,11 @@ namespace ConsoleApp {
 		private static long _total;
 		private static Queue<Robot> _robots = new Queue<Robot>();
 		static async Task Main(string[] args) {
-			for (int i = 0; i < 10; i++)
-			{
+			
 				try
 				{
-					Demo2();
+				//Demo1();	
+				Demo2();
 				} catch (Exception ex)
 				{
 
@@ -20,7 +20,6 @@ namespace ConsoleApp {
 					Console.WriteLine($"Exception:{ex.Message}");
 					Console.ResetColor();
 				}
-			}
 
 		}
 		private static void Demo1() {
@@ -52,8 +51,10 @@ namespace ConsoleApp {
 			Console.WriteLine("-----------------------------");
 		}
 		private static void SetupTeam1() {
+			Robot robot;
 			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 10, Name = "Melville", Team = "Starchasers", Color = ConsoleColor.DarkCyan });
+			robot = new Robot { Id = 10, Name = "Melville", Team = "Starchasers", Color = ConsoleColor.DarkCyan };
+			_robots.Enqueue(robot);
 			Thread.Sleep(1);
 			_robots.Enqueue(new Robot { Id = 11, Name = "Squido", Team = "Starchasers", Color = ConsoleColor.DarkCyan });
 			Thread.Sleep(1);
