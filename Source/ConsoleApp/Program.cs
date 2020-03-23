@@ -15,7 +15,7 @@ namespace ConsoleApp
 			try
 			{
 				Demo1();
-				Demo2();
+				// Demo2();
 			} catch (Exception ex)
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
