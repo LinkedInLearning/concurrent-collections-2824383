@@ -7,12 +7,12 @@ namespace ConsoleApp {
 	class Program {
 		private static long _total;
 		private static Queue<Robot> _robots = new Queue<Robot>();
-		static async Task Main(string[] args) {
+		static void Main(string[] args) {
 			
 				try
 				{
 				//Demo1();	
-				Demo2();
+				//Demo2();
 				} catch (Exception ex)
 				{
 
