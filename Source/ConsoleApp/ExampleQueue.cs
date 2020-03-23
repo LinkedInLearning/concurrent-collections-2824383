@@ -71,5 +71,6 @@ namespace ConsoleApp {
 			_tail = (_size == capacity) ? 0 : _size;
 			_version++;
 		}
+		public int Count { get { return _size; } }
 	}
 }
