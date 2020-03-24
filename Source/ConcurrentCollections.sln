@@ -4,7 +4,7 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{7F070B5A-100C-4875-94CC-880F834B43C6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UseLocks", "UseLocks", "{D2F259C3-9529-450A-9CA4-A82AD72C5EE0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TroubleWithLocks", "TroubleWithLocks", "{D2F259C3-9529-450A-9CA4-A82AD72C5EE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
