@@ -27,15 +27,18 @@ namespace ConsoleApp
 		private static void Demo2()
 		{
 			_robots = new Queue<Robot>();
+			Robot robot;
 			Task task1 = Task.Run(() => SetupTeam1());
 			Task task2 = Task.Run(() => SetupTeam2());
 			Task.WaitAll(task1, task2);
 
-			foreach (var robot in _robots)
+			while (_robots.TryDequeue(out robot))
 			{
 				Console.ForegroundColor = robot.TeamColor;
 				Console.WriteLine($"{robot.Id}: Team: {robot.Team}, {robot.Name}");
 			}
+				
+		
 			Console.ResetColor();
 			Console.WriteLine("-----------------------------");
 		}
