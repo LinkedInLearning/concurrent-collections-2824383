@@ -7,7 +7,6 @@ namespace ConsoleApp
 {
 	internal class Program
 	{
-		private static long _total;
 		private static Queue<Robot> _robots = new Queue<Robot>();
 
 		private static void Main(string[] args)
