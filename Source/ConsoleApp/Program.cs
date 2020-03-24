@@ -14,7 +14,7 @@ namespace ConsoleApp
 		{
 			try
 			{
-				//	Demo1();
+				
 				Demo2();
 			} catch (Exception ex)
 			{
@@ -24,21 +24,7 @@ namespace ConsoleApp
 			}
 		}
 
-		private static void Demo1()
-		{
-			_robots = new Queue<Robot>();
-			SetupTeam1();
-			SetupTeam2();
-			foreach (var robot in _robots)
-			{
-				Console.ForegroundColor = robot.TeamColor;
-				Console.WriteLine($"{robot.Id}: Team: {robot.Team}, {robot.Name}");
-			}
-
-			Console.ResetColor();
-			Console.WriteLine("-----------------------------");
-		}
-
+		
 		private static void Demo2()
 		{
 			_robots = new Queue<Robot>();
@@ -58,7 +44,6 @@ namespace ConsoleApp
 		private static int _idCounter = 0;
 		private static object _lock = new object();
 		private static Mutex _mutex = new Mutex();
-		// private static readonly Monitor ;
 
 		private static void MakeRobot(string teamName, ConsoleColor teamColor)
 		{
