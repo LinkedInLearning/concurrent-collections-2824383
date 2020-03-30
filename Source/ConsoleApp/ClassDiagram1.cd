@@ -1,37 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="System.Threading.Mutex" Collapsed="true">
-    <Position X="0.75" Y="7.25" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="System.Threading.WaitHandle" Collapsed="true">
-    <Position X="2" Y="4.75" Width="1.5" />
+  <Class Name="System.Collections.Concurrent.ConcurrentDictionary&lt;TKey, TValue&gt;">
+    <Position X="4.5" Y="2.25" Width="3" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="System.Threading.Interlocked" Collapsed="true">
-    <Position X="4.75" Y="5.5" Width="1.5" />
+  <Interface Name="System.Collections.Generic.ICollection&lt;T&gt;">
+    <Position X="1" Y="1.5" Width="1.75" />
     <TypeIdentifier />
-  </Class>
-  <Class Name="System.Threading.Monitor" Collapsed="true">
-    <Position X="6.75" Y="5.5" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="System.Threading.EventWaitHandle" Collapsed="true">
-    <Position X="4.25" Y="7.25" Width="2" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="System.Threading.Semaphore" Collapsed="true">
-    <Position X="2.5" Y="7.25" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="System.Threading.ReaderWriterLock" Collapsed="true">
-    <Position X="8.75" Y="6.75" Width="2.25" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="System.Runtime.ConstrainedExecution.CriticalFinalizerObject" Collapsed="true">
-    <Position X="8.75" Y="5.5" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
+  </Interface>
   <Font Name="Segoe UI" Size="10" />
 </ClassDiagram>
