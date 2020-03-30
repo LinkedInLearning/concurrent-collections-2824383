@@ -26,8 +26,8 @@ namespace ConsoleApp
 			// Add, Remove, Update, Count
 			// TryAdd, TryGetValue
 
-			var robots = new Dictionary<int, Robot>();
-			var robotsNew = new ConcurrentDictionary<int, Robot>();
+			//var robots = new Dictionary<int, Robot>();
+			var robots = new ConcurrentDictionary<int, Robot>();
 
 			Robot robot1, robot2, robot3, robot4, currentRobot, tryRobot;
 
@@ -69,10 +69,10 @@ namespace ConsoleApp
 
 			#endregion CreateRobots
 
-			robots.Add(robot1.Id, robot1);
-			robots.Add(robot2.Id, robot2);
-			robots.Add(robot3.Id, robot3);
-			robots.Add(robot4.Id, robot4);
+			robots.TryAdd(robot1.Id, robot1);
+			robots.TryAdd(robot2.Id, robot2);
+			robots.TryAdd(robot3.Id, robot3);
+			robots.TryAdd(robot4.Id, robot4);
 
 			if (!robots.TryAdd(robot4.Id, robot4))
 			{
@@ -89,7 +89,7 @@ namespace ConsoleApp
 				Console.WriteLine($"{keyPair.Key}: Team: {keyPair.Value.Name}, " +
 													$"{keyPair.Value.Team}, GemstoneCount: {keyPair.Value.GemstoneCount}");
 			}
-			robots.Remove(1);
+			//robots.Remove(1);
 			currentRobot = robots[3];
 			currentRobot.GemstoneCount += 1;
 			robots[3] = currentRobot;
