@@ -8,5 +8,6 @@ namespace ConsoleApp {
 		public string Name { get; set; }
 		public string Team { get; set; }
 		public ConsoleColor TeamColor { get; set; }
+		public int GemstoneCount { get; set; }
 	}
 }
