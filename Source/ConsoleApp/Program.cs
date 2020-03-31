@@ -6,8 +6,6 @@ namespace ConsoleApp
 {
 	internal class Program
 	{
-		//private static Dictionary<int, Robot> _robots;
-		//private static ConcurrentDictionary<int, Robot> _robotsNew;
 
 		private static void Main(string[] args)
 		{
