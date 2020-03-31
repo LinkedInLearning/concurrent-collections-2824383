@@ -93,8 +93,11 @@ namespace ConsoleApp
 			}
 			//robots.Remove(1);
 
-
 			//if (robots.TryRemove (robot1.Id, out robot1)
+			//{
+
+			//}
+			//if (robots.TryRemove(robot1.Id, out _))
 			//{
 
 			//}
