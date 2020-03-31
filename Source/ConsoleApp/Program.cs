@@ -6,6 +6,8 @@ namespace ConsoleApp
 {
 	internal class Program
 	{
+		//private static Dictionary<int, Robot> _robots;
+		//private static ConcurrentDictionary<int, Robot> _robotsNew;
 
 		private static void Main(string[] args)
 		{
@@ -26,7 +28,7 @@ namespace ConsoleApp
 			// Add, Remove, Update, Count
 			// TryAdd, TryGetValue
 
-			//var robots = new Dictionary<int, Robot>();
+			//		var robots = new Dictionary<int, Robot>();
 			var robots = new ConcurrentDictionary<int, Robot>();
 
 			Robot robot1, robot2, robot3, robot4, currentRobot, tryRobot;
