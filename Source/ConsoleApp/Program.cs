@@ -91,7 +91,11 @@ namespace ConsoleApp
 				Console.WriteLine($"{keyPair.Key}: Team: {keyPair.Value.Name}, " +
 													$"{keyPair.Value.Team}, GemstoneCount: {keyPair.Value.GemstoneCount}");
 			}
-			//robots.Remove(1);
+			//if (robots.ContainsKey(1))
+			//{
+			//	//robots.Remove(1);
+			//}
+
 
 			//if (robots.TryRemove (robot1.Id, out robot1)
 			//{
