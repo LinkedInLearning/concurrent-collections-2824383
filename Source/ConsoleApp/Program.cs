@@ -28,7 +28,7 @@ namespace ConsoleApp
 
 			var robots = new Dictionary<int, Robot>();
 
-			var _robotsNew = new ConcurrentDictionary<int, Robot>();
+			var robotsNew = new ConcurrentDictionary<int, Robot>();
 
 			Robot robot1, robot2, robot3, robot4, currentRobot, tryRobot;
 
