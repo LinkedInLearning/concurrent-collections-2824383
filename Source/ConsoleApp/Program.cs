@@ -74,12 +74,22 @@ namespace ConsoleApp
 			robots.TryAdd(robot3.Id, robot3);
 			robots.TryAdd(robot4.Id, robot4);
 
+		
 			if (!robots.TryAdd(robot4.Id, robot4))
 			{
 				// Adds robot successfully when it is not already in dictionary
 				// returns false if robot exists in dictionary, without throwing exception
 				Console.WriteLine("Cannot add, robot already in the dictionary.");
 			}
+
+			currentRobot = robots[3];// get with key 
+
+			var newRobot = CreateSameRobot();
+
+			currentRobot = robots.GetOrAdd(newRobot.Id, newRobot); // adds
+			currentRobot = robots.GetOrAdd(newRobot.Id, newRobot); // gets
+
+			//	currentRobot = robots.GetOrAdd(CreateSameRobot());
 
 			WriteHeaderToConsole("List all items in dictionary");
 			Console.WriteLine($"Team count: {robots.Count}");
@@ -111,7 +121,36 @@ namespace ConsoleApp
 			Console.WriteLine($"{tryRobot.Id}: Team: {tryRobot.Name}, {tryRobot.Team}, GemstoneCount: {tryRobot.GemstoneCount}");
 			Console.ResetColor();
 		}
-
+		static Random ran;
+		private static Robot CreateRandomRobot()
+		{
+			ran = new Random();
+			int randomId = ran.Next(200, 300);
+			int gemCount = ran.Next(10, 20);
+			var robot = new Robot()
+			{
+				Id = randomId,
+				Name = $"Robot {randomId}",
+				Team = "Star-chasers",
+				TeamColor = ConsoleColor.DarkYellow,
+				GemstoneCount = gemCount,
+			};
+			return robot;
+		}
+		private static Robot CreateSameRobot()
+		{
+		
+	
+			var robot = new Robot()
+			{
+				Id = 5,
+				Name = $"Robot 5",
+				Team = "Star-chasers",
+				TeamColor = ConsoleColor.DarkYellow,
+				GemstoneCount = 10,
+			};
+			return robot;
+		}
 		private static void WriteHeaderToConsole(string headerText)
 		{
 			Console.ResetColor();
