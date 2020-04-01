@@ -97,15 +97,15 @@ namespace ConsoleApp
 			//}
 
 
-			//if (robots.TryRemove(robot1.Id, out robot1))
-			//{
+			if (robots.TryRemove(robot1.Id, out robot1))
+			{
 
-			//}
-			//if (robots.TryRemove(robot1.Id, out _))
-			//{
+			}
+			if (robots.TryRemove(robot1.Id, out _))
+			{
 
-				//}
-				currentRobot = robots[3];
+			}
+			currentRobot = robots[3];
 			currentRobot.GemstoneCount += 1;
 			robots[3] = currentRobot;
 
