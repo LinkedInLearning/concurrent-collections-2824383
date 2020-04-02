@@ -26,74 +26,36 @@ namespace ConsoleApp
 			// Add, Remove, Update, Count
 			// TryAdd, TryGetValue
 
-			//var robots = new Dictionary<int, Robot>();
-			var robots = new ConcurrentDictionary<int, Robot>();
+			//var robots = new ConcurrentDictionary<int, Robot>();
+			// to improve demos, we'll change to a simpler set of date in the dictionary
 
-			Robot robot1, robot2, robot3, robot4, currentRobot, tryRobot;
+			var robotGems = new ConcurrentDictionary<string, int>();
 
-			#region CreateRobots
+			robotGems.TryAdd("Robot1", 10);
+			robotGems.TryAdd("Robot2", 20);
+			robotGems.TryAdd("Robot3", 30);
+			robotGems.TryAdd("Robot1", 40);
+		
 
-			robot1 = new Robot()
+			if (!robotGems.TryAdd("Robot4", 40))
 			{
-				Id = 1,
-				Name = "Robot 1",
-				Team = "Star-chasers",
-				TeamColor = ConsoleColor.DarkYellow,
-				GemstoneCount = 10
-			};
-			robot2 = new Robot()
-			{
-				Id = 2,
-				Name = "Robot 2",
-				Team = "Star-chasers",
-				TeamColor = ConsoleColor.DarkYellow,
-				GemstoneCount = 10
-			};
-
-			robot3 = new Robot()
-			{
-				Id = 3,
-				Name = "Robot 3",
-				Team = "Deltron",
-				TeamColor = ConsoleColor.Cyan,
-				GemstoneCount = 10
-			};
-			robot4 = new Robot()
-			{
-				Id = 4,
-				Name = "Robot 4",
-				Team = "Deltron",
-				TeamColor = ConsoleColor.Magenta,
-				GemstoneCount = 10
-			};
-
-			#endregion CreateRobots
-
-			robots.TryAdd(robot1.Id, robot1);
-			robots.TryAdd(robot2.Id, robot2);
-			robots.TryAdd(robot3.Id, robot3);
-			robots.TryAdd(robot4.Id, robot4);
-
-			if (!robots.TryAdd(robot4.Id, robot4))
-			{
-				// Adds robot successfully when it is not already in dictionary
-				// returns false if robot exists in dictionary, without throwing exception
+				// Adds item successfully when it is not already in dictionary
+				// returns false if item exists in dictionary, without throwing exception
 				Console.WriteLine("Cannot add, robot already in the dictionary.");
 			}
 
 			WriteHeaderToConsole("List all items in dictionary");
-			Console.WriteLine($"Team count: {robots.Count}");
-			foreach (var keyPair in robots)
+			Console.WriteLine($"Team count: {robotGems.Count}");
+			foreach (var keyPair in robotGems)
 			{
-				Console.ForegroundColor = keyPair.Value.TeamColor;
-				Console.WriteLine($"{keyPair.Key}: Team: {keyPair.Value.Name}, " +
-													$"{keyPair.Value.Team}, GemstoneCount: {keyPair.Value.GemstoneCount}");
+			
+				Console.WriteLine($"{keyPair.Key}: , GemstoneCount: {keyPair.Value}");
 			}
 
 			// one way to update an item
-			currentRobot = robots[3];
-			currentRobot.GemstoneCount += 1;
-			robots[3] = currentRobot;
+			int currentGemCount = robotGems["Robot3"];
+			currentGemCount += 1;
+			robotGems["Robot3"] = currentGemCount;
 
 			// TryUdate
 			// 1. Key must exist in dictionary.
@@ -101,37 +63,33 @@ namespace ConsoleApp
 			//    Update only happens if old value matches expectations.
 			// useful to prevent another thread from making unexpected updates.
 
-			currentRobot = robots[4];
-			currentRobot.GemstoneCount += 1;
-			if (robots.TryUpdate(4, currentRobot, robot4))
-			{
-				Console.WriteLine("Robot4 updated");
-			}
-			else
-			{
-				// another thread has modified the robot
-				// we need to handle and try again!
-				Console.WriteLine("Cannot update Robot4");
-			}
+			currentGemCount = robotGems["Robot4"];
+			currentGemCount += 1;
+
+		//	gems.AddOrUpdate(key: "Robot4", addValue: 42, updateValueFactory: (key,oldvalue)=> IncrementGemCount(key, currentRobot));
 
 			WriteHeaderToConsole("List after removing a robot");
-			Console.WriteLine($"Team count: {robots.Count}");
-			foreach (var keyPair in robots)
+			Console.WriteLine($"Team count: {robotGems.Count}");
+			
+			foreach (var keyPair in robotGems)
 			{
-				Console.ForegroundColor = keyPair.Value.TeamColor;
-				Console.WriteLine($"{keyPair.Key}: Team: {keyPair.Value.Name}," +
-													$" {keyPair.Value.Team}, GemstoneCount: {keyPair.Value.GemstoneCount}");
+
+				Console.WriteLine($"{keyPair.Key}: , GemstoneCount: {keyPair.Value}");
 
 			}
 
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine($"Use .TryGetValue");
 
-			robots.TryGetValue(3, out tryRobot);
-			Console.WriteLine($"{tryRobot.Id}: Team: {tryRobot.Name}, {tryRobot.Team}, GemstoneCount: {tryRobot.GemstoneCount}");
-			Console.ResetColor();
+			robotGems.TryGetValue("Robot3", out currentGemCount);
+			Console.WriteLine($"Robot3: GemstoneCount: {currentGemCount}");
+		
 		}
-
+		private static Robot IncrementGemCount(string key, Robot robot)
+		{
+			robot.GemstoneCount += 1;
+			return robot;
+		}
 		private static void WriteHeaderToConsole(string headerText)
 		{
 			Console.ResetColor();
