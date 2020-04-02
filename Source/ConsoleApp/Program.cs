@@ -72,7 +72,7 @@ namespace ConsoleApp
 			currentGemCount = robotGems["Robot4"];
 			currentGemCount += 1;
 
-			//	gems.AddOrUpdate(key: "Robot4", addValue: 42, updateValueFactory: (key,oldvalue)=> IncrementGemCount(key, currentRobot));
+			//	gems.AddOrUpdate(key: "Robot4", addValue: 42, updateValueFactory: (key, oldvalue)=> IncrementGemCount(key, currentRobot));
 
 
 			Console.ForegroundColor = ConsoleColor.Yellow;
