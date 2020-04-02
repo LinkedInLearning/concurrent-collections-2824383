@@ -89,10 +89,30 @@ namespace ConsoleApp
 				Console.WriteLine($"{keyPair.Key}: Team: {keyPair.Value.Name}, " +
 													$"{keyPair.Value.Team}, GemstoneCount: {keyPair.Value.GemstoneCount}");
 			}
-			//robots.Remove(1);
+
+			// one way to update an item
 			currentRobot = robots[3];
 			currentRobot.GemstoneCount += 1;
 			robots[3] = currentRobot;
+
+			// TryUdate
+			// 1. Key must exist in dictionary.
+			// 2. Pass in the old value for comparison
+			//    Update only happens if old value matches expectations.
+			// useful to prevent another thread from making unexpected updates.
+
+			currentRobot = robots[4];
+			currentRobot.GemstoneCount += 1;
+			if (robots.TryUpdate(4, currentRobot, robot4))
+			{
+				Console.WriteLine("Robot4 updated");
+			}
+			else
+			{
+				// another thread has modified the robot
+				// we need to handle and try again!
+				Console.WriteLine("Cannot update Robot4");
+			}
 
 			WriteHeaderToConsole("List after removing a robot");
 			Console.WriteLine($"Team count: {robots.Count}");
