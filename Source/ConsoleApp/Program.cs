@@ -48,8 +48,6 @@ namespace ConsoleApp
 														addValueFactory: (key) => SetDefaultGemCountForRobot(key),
 														updateValueFactory: (key, oldvalue) => IncrementGemCount(key, currentGemCount));
 
-			currentGemCount += 1;
-
 			robotGems.AddOrUpdate(key: "Robot6",
 																addValueFactory: (key) => SetDefaultGemCountForRobot(key),
 																updateValueFactory: (key, oldvalue) => IncrementGemCount(key, currentGemCount));
