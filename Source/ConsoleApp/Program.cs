@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 
 namespace ConsoleApp
 {
 	internal class Program
 	{
-
 		private static void Main(string[] args)
 		{
 			try
@@ -36,7 +34,6 @@ namespace ConsoleApp
 			robotGems.TryAdd(key: "Robot3", value: 30);
 			robotGems.TryAdd(key: "Robot4", value: 40);
 
-
 			if (robotGems.TryAdd("Robot4", 44))
 			{
 				// returns true: Add the item  when the key is not in the dictionary
@@ -44,7 +41,6 @@ namespace ConsoleApp
 			}
 			else
 			{
-
 				// returns false: Does not alter dictionary when key exists in dictionary (without throwing exception)
 				Console.WriteLine("Cannot add, \"Robot4\" already in the dictionary.");
 			}
@@ -53,17 +49,17 @@ namespace ConsoleApp
 			Console.WriteLine($"Team count: {robotGems.Count}");
 			foreach (var keyPair in robotGems)
 			{
-
 				Console.WriteLine($"{keyPair.Key}: , GemstoneCount: {keyPair.Value}");
 			}
 
 			#region Wrong way to update #1
+
 			// wrong way to update an item
 			int foundCount = SearchForGems();
 			Console.WriteLine($"Robot3, GemStones found: {foundCount}");
 
 			int currentGemCount = robotGems["Robot3"];
-			// while current thread is running, the currentGemCount == 30	
+			// while current thread is running, the currentGemCount == 30
 			// what happens if another thread is scheduled between these 2 lines of code?
 			// for example it updates "Robot3" gem count to 34.
 			robotGems["Robot3"] = currentGemCount + foundCount;
@@ -75,7 +71,7 @@ namespace ConsoleApp
 
 			// what really happened, result is 32.  A race condition broke our application!
 
-			#endregion
+			#endregion Wrong way to update #1
 
 			// better way, but still needs work
 			int foundCount2 = SearchForGems();
@@ -84,11 +80,8 @@ namespace ConsoleApp
 			currentGemCount = robotGems["Robot4"];
 			var totalGems = currentGemCount + foundCount2;
 			robotGems.TryUpdate(key: "Robot4", newValue: totalGems, comparisonValue: currentGemCount);
-		
+
 			currentGemCount += 1;
-
-			//	gems.AddOrUpdate(key: "Robot4", addValue: 42, updateValueFactory: (key,oldvalue)=> IncrementGemCount(key, currentRobot));
-
 
 			Console.ForegroundColor = ConsoleColor.Yellow;
 
@@ -97,27 +90,27 @@ namespace ConsoleApp
 
 			foreach (var keyPair in robotGems)
 			{
-
 				Console.WriteLine($"{keyPair.Key}: , GemstoneCount: {keyPair.Value}");
-
 			}
 
 			Console.ResetColor();
-
 		}
-		static Random _ran = new Random();
+
+		private static Random _ran = new Random();
+
 		private static int SearchForGems()
 		{
 			return _ran.Next(1, 5);
 		}
+
 		private static Robot IncrementGemCount(string key, Robot robot)
 		{
 			robot.GemstoneCount += 1;
 			return robot;
 		}
+
 		private static void WriteHeaderToConsole(string headerText)
 		{
-
 			Console.WriteLine("-----------------------------");
 			Console.WriteLine(headerText);
 			Console.WriteLine("-----------------------------");
