@@ -62,17 +62,7 @@ namespace ConsoleApp
 			Console.WriteLine($"GemStones found: {foundCount}");
 		
 			int currentGemCount = robotGems["Robot3"];
-			// while current thread is running, the currentGemCount == 30	
-			// what happens if another thread is scheduled between these 2 lines of code?
-			// for example it updates "Robot3" gem count to 34.
 			robotGems["Robot3"] = currentGemCount + foundCount;
-
-			// what we want to happen
-			// thread 1, sets dictionary value == 30 + 2
-			// thread 2 sets dictionary value == 32 + 4
-			// expected result is 36.
-
-			// what really happened, result is 32.  A race condition broke our application!
 
 			Console.ForegroundColor = ConsoleColor.Yellow;
 
