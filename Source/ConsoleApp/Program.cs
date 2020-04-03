@@ -6,7 +6,6 @@ namespace ConsoleApp
 {
 	internal class Program
 	{
-
 		private static void Main(string[] args)
 		{
 			try
@@ -22,12 +21,19 @@ namespace ConsoleApp
 
 		private static void Demo()
 		{
-			// dictionary operations
-			// Add, Remove, Update, Count
-			// TryAdd, TryGetValue
+			// From the Microsoft documentation
+			// All public and protected members of ConcurrentDictionary<TKey,TValue> are thread-safe ...
+			// However, members accessed
+			// "through one of the interfaces"
+			// the ConcurrentDictionary<TKey,TValue> implements,
+			// including extension methods, are not guaranteed to be thread safe and may need to be synchronized by the caller.
 
-			// var robots = new ConcurrentDictionary<int, Robot>();
-			// to improve demos, we'll change to a simpler set of data in the dictionary
+			// ICollection<KeyValuePair<TKey, TValue>>,
+			// IEnumerable<KeyValuePair<TKey, TValue>>,
+			// IEnumerable,
+			// IDictionary<TKey, TValue>,
+			// IReadOnlyCollection<KeyValuePair<TKey, TValue>>,
+			// IReadOnlyDictionary<TKey, TValue>, ICollection
 
 			var robotGems = new ConcurrentDictionary<string, int>();
 
@@ -36,62 +42,39 @@ namespace ConsoleApp
 			robotGems.TryAdd(key: "Robot3", value: 30);
 			robotGems.TryAdd(key: "Robot4", value: 40);
 
+			CreateReport(robotGems, 20);
 
-			if (robotGems.TryAdd("Robot4", 44))
-			{
-				// returns true: Add the item  when the key is not in the dictionary
-				Console.WriteLine("\"Robot4\" added to the dictionary.");
-			}
-			else
-			{
-				
-				// returns false: Does not alter dictionary when key exists in dictionary (without throwing exception)
-				Console.WriteLine("Cannot add, \"Robot4\" already in the dictionary.");
-			}
-
-			WriteHeaderToConsole("Starting Values");
-			Console.WriteLine($"Team count: {robotGems.Count}");
-			foreach (var keyPair in robotGems)
-			{
-
-				Console.WriteLine($"{keyPair.Key}: , GemstoneCount: {keyPair.Value}");
-			}
-
-			// one way to update an item
-			int foundCount = SearchForGems();
-			Console.WriteLine($"GemStones found: {foundCount}");
-		
-			int currentGemCount = robotGems["Robot3"];
-			robotGems["Robot3"] = currentGemCount + foundCount;
-
-			Console.ForegroundColor = ConsoleColor.Yellow;
-
-			WriteHeaderToConsole("Updated values");
-			Console.WriteLine($"Team count: {robotGems.Count}");
-
-			foreach (var keyPair in robotGems)
-			{
-
-				Console.WriteLine($"{keyPair.Key}: , GemstoneCount: {keyPair.Value}");
-
-			}
+			//var collection = robotGems as ICollection<KeyValuePair<string, int>>;
 
 			Console.ResetColor();
+		}
 
-		}
-		static Random _ran = new Random();
-		private static int SearchForGems()
+		private static Random _ran = new Random();
+
+		private static void CreateReport(ICollection<KeyValuePair<string, int>> candidates, int threshold)
 		{
-			return _ran.Next(1, 5);
+			// legacy service that produces report from an ICollection
+			foreach (var item in candidates)
+			{
+				Console.WriteLine($"{item.Key}:  GemCount: {item.Value}");
+
+				// .Add, .Remove are not thread-safe
+
+				//if (item.Value <25)
+				//{
+				//	candidates.Remove(item);
+				//}
+			}
 		}
+
 		private static Robot IncrementGemCount(string key, Robot robot)
 		{
 			robot.GemstoneCount += 1;
 			return robot;
 		}
+
 		private static void WriteHeaderToConsole(string headerText)
 		{
-			
 			Console.WriteLine("-----------------------------");
 			Console.WriteLine(headerText);
 			Console.WriteLine("-----------------------------");
