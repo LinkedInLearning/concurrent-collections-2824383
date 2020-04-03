@@ -82,19 +82,19 @@ namespace ConsoleApp
 			Console.WriteLine($"Robot4, GemStones found: {foundCount2}");
 
 			currentGemCount = robotGems["Robot4"];
-		
-			
+
+
 			// what action should happen when the value cannot be updated?
 			// Try again?
-			while (robotGems.TryUpdate(key: "Robot4", newValue: currentGemCount + foundCount2, comparisonValue: currentGemCount)== false)
+			while (robotGems.TryUpdate(key: "Robot4", newValue: currentGemCount + foundCount2, comparisonValue: currentGemCount) == false)
 			{
-			currentGemCount =	robotGems["Robot4"];
+				currentGemCount = robotGems["Robot4"];
 			}
-			
+
 
 			currentGemCount += 1;
 
-					Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.ForegroundColor = ConsoleColor.Yellow;
 
 			WriteHeaderToConsole("Updated values");
 			Console.WriteLine($"Team count: {robotGems.Count}");
