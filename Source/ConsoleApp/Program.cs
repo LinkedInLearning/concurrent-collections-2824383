@@ -57,22 +57,44 @@ namespace ConsoleApp
 				Console.WriteLine($"{keyPair.Key}: , GemstoneCount: {keyPair.Value}");
 			}
 
-			// one way to update an item
-			int currentGemCount = robotGems["Robot3"];
+			#region Wrong way to update #1
+			// wrong way to update an item
 			int foundCount = SearchForGems();
-			Console.WriteLine($"GemStones found: {foundCount}");
+			Console.WriteLine($"Robot3, GemStones found: {foundCount}");
+
+			int currentGemCount = robotGems["Robot3"];
+			// while current thread is running, the currentGemCount == 30	
+			// what happens if another thread is scheduled between these 2 lines of code?
+			// for example it updates "Robot3" gem count to 34.
 			robotGems["Robot3"] = currentGemCount + foundCount;
 
-			// TryUdate
-			// 1. Key must exist in dictionary.
-			// 2. Pass in the old value for comparison
-			//    Update only happens if old value matches expectations.
-			// useful to prevent another thread from making unexpected updates.
+			// what we want to happen
+			// thread 1, sets dictionary value == 30 + 2
+			// thread 2 sets dictionary value == 32 + 4
+			// expected result is 36.
+
+			// what really happened, result is 32.  A race condition broke our application!
+
+			#endregion
+
+			// better way, but still needs work
+			int foundCount2 = SearchForGems();
+			Console.WriteLine($"Robot4, GemStones found: {foundCount2}");
 
 			currentGemCount = robotGems["Robot4"];
+		
+			
+			// what action should happen when the value cannot be updated?
+			// Try again?
+			while (robotGems.TryUpdate(key: "Robot4", newValue: currentGemCount + foundCount2, comparisonValue: currentGemCount)== false)
+			{
+			currentGemCount =	robotGems["Robot4"];
+			}
+			
+
 			currentGemCount += 1;
 
-			//	gems.AddOrUpdate(key: "Robot4", addValue: 42, updateValueFactory: (key, oldvalue)=> IncrementGemCount(key, currentRobot));
+			//	gems.AddOrUpdate(key: "Robot4", addValue: 42, updateValueFactory: (key,oldvalue)=> IncrementGemCount(key, currentRobot));
 
 
 			Console.ForegroundColor = ConsoleColor.Yellow;
