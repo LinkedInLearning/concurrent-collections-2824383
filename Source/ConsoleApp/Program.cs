@@ -58,23 +58,22 @@ namespace ConsoleApp
 			}
 
 			// one way to update an item
-			int currentGemCount = robotGems["Robot3"];
 			int foundCount = SearchForGems();
 			Console.WriteLine($"GemStones found: {foundCount}");
+		
+			int currentGemCount = robotGems["Robot3"];
+			// while current thread is running, the currentGemCount == 30	
+			// what happens if another thread is scheduled between these 2 lines of code?
+			// for example it updates "Robot3" gem count to 34.
 			robotGems["Robot3"] = currentGemCount + foundCount;
 
-			// TryUdate
-			// 1. Key must exist in dictionary.
-			// 2. Pass in the old value for comparison
-			//    Update only happens if old value matches expectations.
-			// useful to prevent another thread from making unexpected updates.
+			// what we want to happen
+			// thread 1, sets dictionary value == 30 + 2
+			// thread 2 sets dictionary value == 32 + 4
+			// expected result is 36.
 
-			currentGemCount = robotGems["Robot4"];
-			currentGemCount += 1;
+			// what really happened, result is 32.  A race condition broke our application!
 
-			//	gems.AddOrUpdate(key: "Robot4", addValue: 42, updateValueFactory: (key,oldvalue)=> IncrementGemCount(key, currentRobot));
-
-			
 			Console.ForegroundColor = ConsoleColor.Yellow;
 
 			WriteHeaderToConsole("Updated values");
