@@ -45,7 +45,7 @@ namespace ConsoleApp
 					Console.WriteLine($"TryDequeue, Name: {dqResult.Name}, Id: {dqResult.Id}");
 				}
 			}
-
+			Console.WriteLine();
 			foreach (var robot in _robots)
 			{
 				Console.ForegroundColor = robot.TeamColor;
