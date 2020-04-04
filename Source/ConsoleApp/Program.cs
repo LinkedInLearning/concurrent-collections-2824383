@@ -41,10 +41,10 @@ namespace ConsoleApp
 			robotGems.TryAdd(key: "Robot3", value: 30);
 			robotGems.TryAdd(key: "Robot4", value: 40);
 
-			// var collection = robotGems as ICollection<KeyValuePair<string, int>>;
+			 // var collection = robotGems as ICollection<KeyValuePair<string, int>>;
 			
-			CreateReport(robotGems);
-			//RemoveItemsBelowThreshold( robotGems, 25);
+			//CreateReport(robotGems);
+			RemoveItemsBelowThreshold( robotGems, 25);
 			Console.ResetColor();
 		}
 
