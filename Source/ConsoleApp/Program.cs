@@ -8,7 +8,7 @@ namespace ConsoleApp
 	internal class Program
 	{
 
-		private static ConcurrentQueue<Robot> _robots;
+		private static ConcurrentBag<Robot> _robots;
 
 		private static void Main(string[] args)
 		{
@@ -25,24 +25,24 @@ namespace ConsoleApp
 
 		private static void Demo()
 		{
-			_robots = new ConcurrentQueue<Robot>();
+			_robots = new ConcurrentBag<Robot>();
 			// with standard Queue this will occasionally throw array exception!
 			Task task1 = Task.Run(() => SetupTeam1());
 			Task task2 = Task.Run(() => SetupTeam2());
 			Task.WaitAll(task1, task2);
 
-			// Tries to return an object from the beginning of the ConcurrentQueue
+			// Tries to return an item from the of the ConcurrentBag
 			// without removing it.
-			Robot peekResult, dqResult;
+			Robot peekResult, takeResult;
 
 			_robots.TryPeek(out peekResult);
 			Console.WriteLine($"TryPeek, Name: {peekResult.Name}, Id: {peekResult}");
 
 			if (_robots.IsEmpty == false)
 			{
-				if (_robots.TryDequeue(out dqResult))
+				if (_robots.TryTake(out takeResult))
 				{
-					Console.WriteLine($"TryDequeue, Name: {dqResult.Name}, Id: {dqResult.Id}");
+					Console.WriteLine($"TryDequeue, Name: {takeResult.Name}, Id: {takeResult.Id}");
 				}
 			}
 			Console.WriteLine();
@@ -57,32 +57,54 @@ namespace ConsoleApp
 
 		private static void SetupTeam1()
 		{
+			Robot tempRobot;
+			Thread.Sleep(1);
+			for (int counter = 10; counter < 16; counter++)
+			{
+			
+				tempRobot = new Robot { Id = counter, Name = $"Robot{counter}", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan };
+				_robots.Add(tempRobot);
+
+				Thread.Sleep(1);
+			
+				Console.WriteLine($"Thread:{Thread.CurrentThread.ManagedThreadId} \tAdd: ID {tempRobot.Id}: Team: {tempRobot.Team}, {tempRobot.Name}");
+			}
+
+			//_robots.Add(new Robot { Id = 11, Name = "Robot11", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
+			//Thread.Sleep(1);
+			//_robots.Add(new Robot { Id = 12, Name = "Robot12", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
+			//Thread.Sleep(1);
+			//_robots.Add(new Robot { Id = 13, Name = "Robot13", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
+			//Thread.Sleep(1);
+			//_robots.Add(new Robot { Id = 14, Name = "Robot14", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
+
 			Robot robot;
-			Thread.Sleep(1);
-			robot = new Robot { Id = 10, Name = "Robot10", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan };
-			_robots.Enqueue(robot);
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 11, Name = "Robot11", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 12, Name = "Robot12", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 13, Name = "Robot13", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 14, Name = "Robot14", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
+			_robots.TryTake(out robot);
+
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine($"Thread:{Thread.CurrentThread.ManagedThreadId} \tTryTake: ID {robot.Id}: Team: {robot.Team}, {robot.Name}");
 		}
 
 		private static void SetupTeam2()
 		{
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 20, Name = "Robot20", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 21, Name = "Robot21", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 22, Name = "Robot22", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 23, Name = "Robot23", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 24, Name = "Robot24", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
+			Robot tempRobot;
+			for (int counter = 20; counter < 26; counter++)
+			{
+				
+				tempRobot = new Robot { Id = counter, Name = $"Robot{counter}", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow };
+				_robots.Add(tempRobot);
+
+				Thread.Sleep(1);
+				
+				Console.WriteLine($"Thread::{Thread.CurrentThread.ManagedThreadId} \tAdd: ID {tempRobot.Id}: Team: {tempRobot.Team}, {tempRobot.Name}");
+			}
+
+			
+			Robot robot;
+			_robots.TryTake(out robot);
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine($"Thread:{Thread.CurrentThread.ManagedThreadId} \tTryTake: ID {robot.Id}: Team: {robot.Team}, {robot.Name}");
+
 		}
 	}
 }
