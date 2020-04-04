@@ -24,9 +24,8 @@ namespace ConsoleApp
 			// From the Microsoft documentation
 			// All public and protected members of ConcurrentDictionary<TKey,TValue> are thread-safe ...
 			// However, members accessed
-			// "through one of the interfaces"
-			// the ConcurrentDictionary<TKey,TValue> implements,
-			// including extension methods, are not guaranteed to be thread safe and may need to be synchronized by the caller.
+			// "through one of the interfaces" it implements...
+			// are not guaranteed to be thread safe and may need to be synchronized by the caller.
 
 			// ICollection<KeyValuePair<TKey, TValue>>,
 			// IEnumerable<KeyValuePair<TKey, TValue>>,
