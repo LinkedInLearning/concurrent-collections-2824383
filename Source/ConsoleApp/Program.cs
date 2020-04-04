@@ -42,8 +42,8 @@ namespace ConsoleApp
 			robotGems.TryAdd(key: "Robot4", value: 40);
 
 			//var collection = robotGems as ICollection<KeyValuePair<string, int>>;
-			CreateReport(robotGems);
-			RemoveItemsBelowThreshold(robotGems, 25);
+			//CreateReport(robotGems);
+			RemoveItemsBelowThreshold( robotGems, 25);
 			Console.ResetColor();
 		}
 
@@ -58,7 +58,7 @@ namespace ConsoleApp
 			}
 		}
 
-		private static void RemoveItemsBelowThreshold(ICollection<KeyValuePair<string, int>> candidates, int threshold)
+		private static void RemoveItemsBelowThreshold( ICollection<KeyValuePair<string, int>> candidates, int threshold)
 		{
 			// legacy service that alters ICollection values
 			foreach (var item in candidates)
@@ -68,9 +68,10 @@ namespace ConsoleApp
 				if (item.Value < threshold)
 				{
 					candidates.Remove(item);
+					Console.WriteLine($"{item.Key}:  GemCount: {item.Value}");
 				}
 
-				Console.WriteLine($"{item.Key}:  GemCount: {item.Value}");
+				
 			}
 		}
 
