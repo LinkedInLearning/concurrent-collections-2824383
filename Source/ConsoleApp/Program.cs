@@ -35,13 +35,13 @@ namespace ConsoleApp
 			// IReadOnlyDictionary<TKey, TValue>, ICollection
 
 			var robotGems = new ConcurrentDictionary<string, int>();
-
+			
 			robotGems.TryAdd(key: "Robot1", value: 10);
 			robotGems.TryAdd(key: "Robot2", value: 20);
 			robotGems.TryAdd(key: "Robot3", value: 30);
 			robotGems.TryAdd(key: "Robot4", value: 40);
 
-			CreateReport(robotGems, 20);
+			CreateReport(robotGems, 25);
 
 			//var collection = robotGems as ICollection<KeyValuePair<string, int>>;
 
@@ -59,10 +59,10 @@ namespace ConsoleApp
 
 				// .Add, .Remove are not thread-safe
 
-				//if (item.Value <25)
-				//{
-				//	candidates.Remove(item);
-				//}
+				if (item.Value < threshold)
+				{
+					candidates.Remove(item);
+				}
 			}
 		}
 
