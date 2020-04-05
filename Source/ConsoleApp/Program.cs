@@ -26,26 +26,29 @@ namespace ConsoleApp
 		{
 			_numbers = new BlockingCollection<int>(new ConcurrentQueue<int>());
 
-			Task produceTask1 = Task.Run(() => ProduceItems());
-			Task produceTask2 = Task.Run(() => ProduceItems());
+			Task produceTask1 = Task.Run(() => ProduceItems(itemCount: 6, startNumber:10));
+			Task produceTask2 = Task.Run(() => ProduceItems(itemCount: 7, startNumber: 20));
 			Task consumeTask1 = Task.Run(() => ConsumeItems());
-			Task consumeTask2 = Task.Run(() => ConsumeItems());
+	
 			
-			Task.WaitAll(produceTask1, produceTask2, consumeTask1, consumeTask2);
+			Task.WaitAll(produceTask1, produceTask2, consumeTask1);
 
 			Console.ResetColor();
 			Console.WriteLine("------------ Done -----------------");
 		}
-
-		private static void ProduceItems()
+	
+		private static object _lock = new object();
+		private static void ProduceItems(int itemCount, int startNumber)
 		{
-			int counter = 0;
 
-			while (true)
+
+			for (int counter = startNumber; counter <= startNumber + itemCount; counter++)
 			{
+
+			
 				Thread.Sleep(50);
-				counter += 1;
-				// .Add blocks when collection is full
+
+
 				if (_numbers.IsAddingCompleted)
 				{
 					return;
@@ -53,13 +56,12 @@ namespace ConsoleApp
 				_numbers.Add(counter);
 				Console.ForegroundColor = ConsoleColor.Magenta;
 				Console.WriteLine($"Add: {counter:D2}, Capacity: {+_numbers.Count}");
-				if (counter >= 20)
-				{
-					_numbers.CompleteAdding();
 
-					return;
-				}
+			
 			}
+
+			_numbers.CompleteAdding();
+
 		}
 
 		private static void ConsumeItems()
@@ -67,7 +69,7 @@ namespace ConsoleApp
 			int counter = 0;
 			while (true)
 			{
-				Thread.Sleep(700);
+				Thread.Sleep(300);
 
 				if (_numbers.IsCompleted)
 				{
