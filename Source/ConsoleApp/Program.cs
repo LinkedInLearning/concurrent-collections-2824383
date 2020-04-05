@@ -42,31 +42,44 @@ namespace ConsoleApp
 			{
 				if (_robots.TryTake(out takeResult))
 				{
-					Console.WriteLine($"TryDequeue, Name: {takeResult.Name}, Id: {takeResult.Id}");
+					Console.WriteLine($"TryTake, Name: {takeResult.Name}, Id: {takeResult.Id}");
 				}
 			}
-			Console.WriteLine();
-			foreach (var robot in _robots)
-			{
-				Console.ForegroundColor = robot.TeamColor;
-				Console.WriteLine($"{robot.Id}: Team: {robot.Team}, {robot.Name}");
-			}
+			task1 = Task.Run(() => TakeItems());
+			task2 = Task.Run(() => TakeItems());
+
+			Task.WaitAll(task1, task2);
+			//TakeItems();
 			Console.ResetColor();
 			Console.WriteLine("-----------------------------");
+		}
+
+		private static void TakeItems()
+		{
+			Console.WriteLine();
+			Robot robot;
+			while (_robots.TryTake(out robot))
+			{
+				Console.ForegroundColor = robot.TeamColor;
+				Console.WriteLine($"Thread:{ Thread.CurrentThread.ManagedThreadId} \t{ robot.Id}: Team: {robot.Team}, {robot.Name}");
+			}
+			
+		
+
 		}
 
 		private static void SetupTeam1()
 		{
 			Robot tempRobot;
-			Thread.Sleep(1);
+			Thread.Sleep(50);
 			for (int counter = 10; counter < 16; counter++)
 			{
-			
+
 				tempRobot = new Robot { Id = counter, Name = $"Robot{counter}", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan };
 				_robots.Add(tempRobot);
 
 				Thread.Sleep(1);
-			
+
 				Console.WriteLine($"Thread:{Thread.CurrentThread.ManagedThreadId} \tAdd: ID {tempRobot.Id}: Team: {tempRobot.Team}, {tempRobot.Name}");
 			}
 
@@ -90,16 +103,16 @@ namespace ConsoleApp
 			Robot tempRobot;
 			for (int counter = 20; counter < 26; counter++)
 			{
-				
+
 				tempRobot = new Robot { Id = counter, Name = $"Robot{counter}", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow };
 				_robots.Add(tempRobot);
 
-				Thread.Sleep(1);
-				
+				Thread.Sleep(70);
+
 				Console.WriteLine($"Thread::{Thread.CurrentThread.ManagedThreadId} \tAdd: ID {tempRobot.Id}: Team: {tempRobot.Team}, {tempRobot.Name}");
 			}
 
-			
+
 			Robot robot;
 			_robots.TryTake(out robot);
 			Console.ForegroundColor = ConsoleColor.Yellow;
