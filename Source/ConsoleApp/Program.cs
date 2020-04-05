@@ -27,7 +27,7 @@ namespace ConsoleApp
 		private static void Demo()
 		{
 			_numbers = new BlockingCollection<int>();
-		
+
 			Task produceTask = Task.Run(() => ProduceItems());
 			Task consumeTask = Task.Run(() => ConsumeItems());
 			Task.WaitAll(produceTask, consumeTask);
@@ -38,19 +38,25 @@ namespace ConsoleApp
 
 		private static void ProduceItems()
 		{
-		
+
 			int counter = 0;
 
 			while (true)
 			{
-				Thread.Sleep(800);
+				Thread.Sleep(500);
 				counter += 1;
 				// .Add blocks when collection is full
 				_numbers.Add(counter);
 				Console.ForegroundColor = ConsoleColor.Magenta;
 				Console.WriteLine($"Add: {counter}, Capacity: {+_numbers.Count}");
+				if (counter >= 12)
+				{
+					_numbers.CompleteAdding();
+					Console.WriteLine($"Producer called: CompleteAdding");
+					return;
+				}
 			}
-			
+
 		}
 
 		private static void ConsumeItems()
@@ -58,10 +64,18 @@ namespace ConsoleApp
 			int counter = 0;
 			while (true)
 			{
-				Thread.Sleep(600);
-		
-				// .Take blocks when collection is empty.
-				counter =  _numbers.Take();
+				Thread.Sleep(700);
+
+				if (_numbers.IsAddingCompleted)
+				{
+					Console.ForegroundColor = ConsoleColor.Yellow;
+					Console.WriteLine($".IsAddingCompleted == {_numbers.IsAddingCompleted}, IsCompleted == {_numbers.IsCompleted}");
+				}
+				if (_numbers.IsCompleted)
+				{
+					return;
+				}
+				counter = _numbers.Take();
 
 				Console.ForegroundColor = ConsoleColor.Yellow;
 				Console.WriteLine($"Take: {counter}");
