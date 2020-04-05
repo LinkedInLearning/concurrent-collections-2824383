@@ -64,7 +64,7 @@ namespace ConsoleApp
 
 			while (true)
 			{
-				Thread.Sleep(50);
+				Thread.Sleep(30);
 				counter += 1;
 				// .Add blocks when collection is full
 				_numbers.Add(counter);
@@ -85,7 +85,7 @@ namespace ConsoleApp
 			int counter = 0;
 			while (true)
 			{
-				Thread.Sleep(700);
+				Thread.Sleep(400);
 
 				
 				if (_numbers.IsCompleted)
