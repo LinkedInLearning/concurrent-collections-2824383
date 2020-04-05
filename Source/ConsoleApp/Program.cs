@@ -7,7 +7,6 @@ namespace ConsoleApp
 {
 	internal class Program
 	{
-
 		private static BlockingCollection<int> _numbers;
 
 		private static void Main(string[] args)
@@ -20,46 +19,25 @@ namespace ConsoleApp
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine($"Exception:{ex.Message}");
 				Console.ResetColor();
-
 			}
 		}
 
 		private static void Demo()
 		{
-			_numbers = new BlockingCollection<int>(new ConcurrentQueue<int>());
+			_numbers = new BlockingCollection<int>(new ConcurrentQueue<int>(),10);
 
 			Task produceTask = Task.Run(() => ProduceItems());
-			Task consumeTask = Task.Run(() => ConsumeItems());
+			Task consumeTask1 = Task.Run(() => ConsumeItems());
+			Task consumeTask2 = Task.Run(() => ConsumeItems());
 
-			Task.WaitAll(produceTask, consumeTask);
-
-			Console.ResetColor();
-			Console.WriteLine("------------ ConcurrentStack -----------------");
-
-			_numbers = new BlockingCollection<int>(new ConcurrentStack<int>());
-
-			 produceTask = Task.Run(() => ProduceItems());
-			 consumeTask = Task.Run(() => ConsumeItems());
-			Task.WaitAll(produceTask, consumeTask);
-
-			Console.ResetColor();
-			Console.WriteLine("------------ ConcurrentBag -----------------");
-
-
-			_numbers = new BlockingCollection<int>(new ConcurrentBag<int>());
-
-			produceTask = Task.Run(() => ProduceItems());
-			consumeTask = Task.Run(() => ConsumeItems());
-			Task.WaitAll(produceTask, consumeTask);
+			Task.WaitAll(produceTask, consumeTask1, consumeTask2);
 
 			Console.ResetColor();
 			Console.WriteLine("------------ Done -----------------");
-
 		}
 
 		private static void ProduceItems()
 		{
-
 			int counter = 0;
 
 			while (true)
@@ -69,15 +47,14 @@ namespace ConsoleApp
 				// .Add blocks when collection is full
 				_numbers.Add(counter);
 				Console.ForegroundColor = ConsoleColor.Magenta;
-				Console.WriteLine($"Add: {counter}, Capacity: {+_numbers.Count}");
-				if (counter >= 8)
+				Console.WriteLine($"Add: {counter:D2}, Capacity: {+_numbers.Count}");
+				if (counter >= 20)
 				{
 					_numbers.CompleteAdding();
-				
+
 					return;
 				}
 			}
-
 		}
 
 		private static void ConsumeItems()
@@ -87,7 +64,6 @@ namespace ConsoleApp
 			{
 				Thread.Sleep(700);
 
-				
 				if (_numbers.IsCompleted)
 				{
 					return;
@@ -95,7 +71,7 @@ namespace ConsoleApp
 				counter = _numbers.Take();
 
 				Console.ForegroundColor = ConsoleColor.Yellow;
-				Console.WriteLine($"Take: {counter}");
+				Console.WriteLine($"Take: {counter:D2}, Thread: {Thread.CurrentThread.ManagedThreadId}");
 			}
 		}
 	}
