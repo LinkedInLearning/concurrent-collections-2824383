@@ -44,10 +44,10 @@ namespace ConsoleApp
 			{
 				Thread.Sleep(50);
 
-				if (_numbers.IsAddingCompleted)
-				{
-					return;
-				}
+				//if (_numbers.IsAddingCompleted)
+				//{
+				//	return;
+				//}
 				_numbers.Add(counter);
 				Console.ForegroundColor = ConsoleColor.Magenta;
 				Console.WriteLine($"Add: {counter:D2}, Capacity: {+_numbers.Count}");
