@@ -26,14 +26,35 @@ namespace ConsoleApp
 
 		private static void Demo()
 		{
-			_numbers = new BlockingCollection<int>();
+			_numbers = new BlockingCollection<int>(new ConcurrentQueue<int>());
 
 			Task produceTask = Task.Run(() => ProduceItems());
 			Task consumeTask = Task.Run(() => ConsumeItems());
+
 			Task.WaitAll(produceTask, consumeTask);
 
 			Console.ResetColor();
-			Console.WriteLine("-----------------------------");
+			Console.WriteLine("------------ ConcurrentStack -----------------");
+
+			_numbers = new BlockingCollection<int>(new ConcurrentStack<int>());
+
+			 produceTask = Task.Run(() => ProduceItems());
+			 consumeTask = Task.Run(() => ConsumeItems());
+			Task.WaitAll(produceTask, consumeTask);
+
+			Console.ResetColor();
+			Console.WriteLine("------------ ConcurrentBag -----------------");
+
+
+			_numbers = new BlockingCollection<int>(new ConcurrentBag<int>());
+
+			produceTask = Task.Run(() => ProduceItems());
+			consumeTask = Task.Run(() => ConsumeItems());
+			Task.WaitAll(produceTask, consumeTask);
+
+			Console.ResetColor();
+			Console.WriteLine("------------ Done -----------------");
+
 		}
 
 		private static void ProduceItems()
@@ -43,16 +64,16 @@ namespace ConsoleApp
 
 			while (true)
 			{
-				Thread.Sleep(500);
+				Thread.Sleep(50);
 				counter += 1;
 				// .Add blocks when collection is full
 				_numbers.Add(counter);
 				Console.ForegroundColor = ConsoleColor.Magenta;
 				Console.WriteLine($"Add: {counter}, Capacity: {+_numbers.Count}");
-				if (counter >= 12)
+				if (counter >= 8)
 				{
 					_numbers.CompleteAdding();
-					Console.WriteLine($"Producer called: CompleteAdding");
+				
 					return;
 				}
 			}
@@ -66,11 +87,7 @@ namespace ConsoleApp
 			{
 				Thread.Sleep(700);
 
-				if (_numbers.IsAddingCompleted)
-				{
-					Console.ForegroundColor = ConsoleColor.Yellow;
-					Console.WriteLine($".IsAddingCompleted == {_numbers.IsAddingCompleted}, IsCompleted == {_numbers.IsCompleted}");
-				}
+				
 				if (_numbers.IsCompleted)
 				{
 					return;
