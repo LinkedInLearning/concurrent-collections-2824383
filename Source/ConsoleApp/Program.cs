@@ -45,11 +45,11 @@ namespace ConsoleApp
 					Console.WriteLine($"TryTake, Name: {takeResult.Name}, Id: {takeResult.Id}");
 				}
 			}
-			task1 = Task.Run(() => TakeItems());
-			task2 = Task.Run(() => TakeItems());
+			//task1 = Task.Run(() => TakeItems());
+			//task2 = Task.Run(() => TakeItems());
 
-			Task.WaitAll(task1, task2);
-			//TakeItems();
+			//Task.WaitAll(task1, task2);
+			TakeItems();
 			Console.ResetColor();
 			Console.WriteLine("-----------------------------");
 		}
