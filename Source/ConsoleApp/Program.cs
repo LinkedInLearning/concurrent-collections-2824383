@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,19 +16,21 @@ namespace ConsoleApp
 		{
 			try
 			{
+				Maximize();
 				Demo();
 			} catch (Exception ex)
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine($"Exception:{ex.Message}");
 				Console.ResetColor();
+			
 
 			}
 		}
 
 		private static void Demo()
 		{
-			_numbers = new BlockingCollection<int>();
+			_numbers = new BlockingCollection<int>(4);
 		
 			Task produceTask = Task.Run(() => ProduceItems());
 			Task consumeTask = Task.Run(() => ConsumeItems());
@@ -58,7 +62,7 @@ namespace ConsoleApp
 			int counter = 0;
 			while (true)
 			{
-				Thread.Sleep(300);
+				Thread.Sleep(800);
 		
 				// .Take method is blocked when collection is empty.
 				counter =  _numbers.Take();
@@ -67,5 +71,19 @@ namespace ConsoleApp
 				Console.WriteLine($"Take: {counter}");
 			}
 		}
+
+		#region MaximizeWindowCode
+		[DllImport("user32.dll", ExactSpelling = true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool ShowWindow(System.IntPtr hWnd, int cmdShow);
+		[DllImport("kernel32.dll")]
+		static extern IntPtr GetConsoleWindow();
+
+		private static void Maximize()
+		{
+			Process p = Process.GetCurrentProcess();
+			ShowWindow(GetConsoleWindow(), 3); //SW_MAXIMIZE = 3
+		} 
+		#endregion
 	}
 }
