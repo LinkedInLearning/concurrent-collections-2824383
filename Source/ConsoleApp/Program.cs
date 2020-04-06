@@ -48,7 +48,7 @@ namespace ConsoleApp
 				// .Add thread is blocked when collection reached bounded capacity
 				_numbers.Add(counter);
 				Console.ForegroundColor = ConsoleColor.Magenta;
-				Console.WriteLine($"Add: {counter}, Capacity: {+_numbers.Count}");
+				Console.WriteLine($"Add: {counter}, Capacity: {_numbers.Count}");
 			}
 			
 		}
