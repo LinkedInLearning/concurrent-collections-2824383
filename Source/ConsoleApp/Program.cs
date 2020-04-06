@@ -43,9 +43,9 @@ namespace ConsoleApp
 
 			while (true)
 			{
-				Thread.Sleep(800);
+				Thread.Sleep(400);
 				counter += 1;
-				// .Add blocks when collection is full
+				// .Add thread is blocked when collection reached bounded capacity
 				_numbers.Add(counter);
 				Console.ForegroundColor = ConsoleColor.Magenta;
 				Console.WriteLine($"Add: {counter}, Capacity: {+_numbers.Count}");
@@ -58,9 +58,9 @@ namespace ConsoleApp
 			int counter = 0;
 			while (true)
 			{
-				Thread.Sleep(600);
+				Thread.Sleep(300);
 		
-				// .Take blocks when collection is empty.
+				// .Take method is blocked when collection is empty.
 				counter =  _numbers.Take();
 
 				Console.ForegroundColor = ConsoleColor.Yellow;
