@@ -72,7 +72,7 @@ namespace ConsoleApp
 		{
 			Robot tempRobot;
 			Thread.Sleep(50);
-			for (int counter = 10; counter < 16; counter++)
+			for (int counter = 10; counter <= 15; counter++)
 			{
 
 				tempRobot = new Robot { Id = counter, Name = $"Robot{counter}", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan };
@@ -101,7 +101,7 @@ namespace ConsoleApp
 		private static void SetupTeam2()
 		{
 			Robot tempRobot;
-			for (int counter = 20; counter < 26; counter++)
+			for (int counter = 20; counter <= 25; counter++)
 			{
 
 				tempRobot = new Robot { Id = counter, Name = $"Robot{counter}", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow };
