@@ -9,7 +9,6 @@ namespace ConsoleApp
 {
 	internal class Program
 	{
-
 		private static BlockingCollection<int> _numbers;
 
 		private static void Main(string[] args)
@@ -23,7 +22,6 @@ namespace ConsoleApp
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine($"Exception:{ex.Message}");
 				Console.ResetColor();
-
 			}
 		}
 
@@ -41,14 +39,13 @@ namespace ConsoleApp
 
 		private static void ProduceItems()
 		{
-
 			int counter = 0;
 
 			while (true)
 			{
 				Thread.Sleep(500);
 				counter += 1;
-				// .Add blocks when collection is full
+
 				_numbers.Add(counter);
 				Console.ForegroundColor = ConsoleColor.Magenta;
 				Console.WriteLine($"Add: {counter}, Capacity: {+_numbers.Count}");
@@ -59,7 +56,6 @@ namespace ConsoleApp
 					return;
 				}
 			}
-
 		}
 
 		private static void ConsumeItems()
@@ -86,17 +82,20 @@ namespace ConsoleApp
 		}
 
 		#region MaximizeWindowCode
+
 		[DllImport("user32.dll", ExactSpelling = true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern bool ShowWindow(System.IntPtr hWnd, int cmdShow);
+
 		[DllImport("kernel32.dll")]
-		static extern IntPtr GetConsoleWindow();
+		private static extern IntPtr GetConsoleWindow();
 
 		private static void Maximize()
 		{
 			Process p = Process.GetCurrentProcess();
 			ShowWindow(GetConsoleWindow(), 3); //SW_MAXIMIZE = 3
 		}
-		#endregion
+
+		#endregion MaximizeWindowCode
 	}
 }
