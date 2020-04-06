@@ -61,7 +61,7 @@ namespace ConsoleApp
 		private static void ConsumeItems()
 		{
 			int counter = 0;
-			while (true)
+			while (_numbers.IsCompleted == false)
 			{
 				Thread.Sleep(700);
 
@@ -70,10 +70,10 @@ namespace ConsoleApp
 					Console.ForegroundColor = ConsoleColor.Yellow;
 					Console.WriteLine($".IsAddingCompleted == {_numbers.IsAddingCompleted}, IsCompleted == {_numbers.IsCompleted}");
 				}
-				if (_numbers.IsCompleted)
-				{
-					return;
-				}
+				//if (_numbers.IsCompleted)
+				//{
+				//	return;
+				//}
 				counter = _numbers.Take();
 
 				Console.ForegroundColor = ConsoleColor.Yellow;
