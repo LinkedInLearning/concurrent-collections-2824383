@@ -13,7 +13,7 @@ namespace ConsoleApp {
 				{
 				//Demo1();	
 				//Demo2();
-				} catch (Exception ex)
+			} catch (Exception ex)
 				{
 
 					Console.ForegroundColor = ConsoleColor.Red;
@@ -26,8 +26,11 @@ namespace ConsoleApp {
 			_robots = new Queue<Robot>();
 			SetupTeam1();
 			SetupTeam2();
-			foreach (var robot in _robots)
+			Robot robot;
+			Console.WriteLine();
+			while (_robots.Count > 0)
 			{
+				robot = _robots.Dequeue();
 				Console.ForegroundColor = robot.TeamColor;
 				Console.WriteLine($"{robot.Id}: Team: {robot.Team}, {robot.Name}");
 			}
@@ -41,40 +44,47 @@ namespace ConsoleApp {
 			Task task1 = Task.Run(() => SetupTeam1());
 			Task task2 = Task.Run(() => SetupTeam2());
 			Task.WaitAll(task1, task2);
-
-			foreach (var robot in _robots)
+			Robot robot;
+			Console.WriteLine();
+			while (_robots.Count >0)
 			{
+				robot = _robots.Dequeue();
 				Console.ForegroundColor = robot.TeamColor;
 				Console.WriteLine($"{robot.Id}: Team: {robot.Team}, {robot.Name}");
 			}
+			
+
 			Console.ResetColor();
 			Console.WriteLine("-----------------------------");
 		}
 		private static void SetupTeam1() {
 			Robot robot;
-			Thread.Sleep(1);
-			robot = new Robot { Id = 10, Name = "Melville", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan };
-			_robots.Enqueue(robot);
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 11, Name = "Squido", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 12, Name = "Frex", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 13, Name = "Belfor", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 14, Name = "Jeeve", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan });
+			
+			for (int counter = 10; counter <=14; counter++)
+			{
+				Thread.Sleep(1);
+				robot = new Robot { Id = counter, Name = $"Robot{counter}", Team = "Starchasers", TeamColor = ConsoleColor.DarkCyan };
+				_robots.Enqueue(robot);
+				Console.WriteLine($"Enqueue, Thread: {Thread.CurrentThread.ManagedThreadId}, Queue.Count: {_robots.Count:D2} Name: {robot.Name}");
+				
+			}
+	
+			
 		}
 		private static void SetupTeam2() {
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 20, Name = "Jarm", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 21, Name = "Skedle", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 22, Name = "Cellki", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 23, Name = "Treedo", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
-			Thread.Sleep(1);
-			_robots.Enqueue(new Robot { Id = 24, Name = "Umber", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow });
+
+			Robot robot;
+
+			for (int counter = 20; counter <= 24; counter++)
+			{
+				Thread.Sleep(1);
+				robot = new Robot { Id = counter, Name = $"Robot{counter}", Team = "Deltron", TeamColor = ConsoleColor.DarkYellow };
+				_robots.Enqueue(robot);
+
+				Console.WriteLine($"Enqueue, Thread: {Thread.CurrentThread.ManagedThreadId}, Queue.Count: {_robots.Count:D2} Name: {robot.Name}");
+
+			}
+
 		}
 	}
 
