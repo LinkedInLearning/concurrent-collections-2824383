@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,6 +16,7 @@ namespace ConsoleApp
 		{
 			try
 			{
+				Maximize();
 				Demo();
 			} catch (Exception ex)
 			{
@@ -81,5 +84,19 @@ namespace ConsoleApp
 				Console.WriteLine($"Take: {counter}");
 			}
 		}
+
+		#region MaximizeWindowCode
+		[DllImport("user32.dll", ExactSpelling = true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool ShowWindow(System.IntPtr hWnd, int cmdShow);
+		[DllImport("kernel32.dll")]
+		static extern IntPtr GetConsoleWindow();
+
+		private static void Maximize()
+		{
+			Process p = Process.GetCurrentProcess();
+			ShowWindow(GetConsoleWindow(), 3); //SW_MAXIMIZE = 3
+		}
+		#endregion
 	}
 }
