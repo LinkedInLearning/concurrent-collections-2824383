@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp {
 	class Program {
-		private static long _total;
 		private static Queue<Robot> _robots = new Queue<Robot>();
 		static void Main(string[] args) {
 			
