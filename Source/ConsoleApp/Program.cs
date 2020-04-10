@@ -41,6 +41,15 @@ namespace ConsoleApp
 			// some experts consider AddOrUpdate a better choice over TryUpdate method
 			// but it is more complex and you must provide one or more delegates
 			// that add or update the values in the ConcurrentDictionary
+			
+			//if (robotGems.TryUpdate("robot2", 22, 22))
+			//{
+			//	// update item value in dictionary.
+			//}
+			//else
+			//{ 
+			//	// add new item to dictionary
+			//}
 
 			currentGemCount = robotGems["Robot4"];
 
