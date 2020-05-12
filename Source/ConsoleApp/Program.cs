@@ -42,7 +42,7 @@ namespace ConsoleApp
 			// but it is more complex and you must provide one or more delegates
 			// that add or update the values in the ConcurrentDictionary
 			
-			if (robotGems.ContainsKey("robot2"))
+			//if (robotGems.ContainsKey("robot2"))
 			//{
 			//	// update item value in dictionary.
 			//}
