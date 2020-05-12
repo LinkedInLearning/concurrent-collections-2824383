@@ -30,7 +30,7 @@ namespace ConsoleApp
 
 		private static void Demo()
 		{
-			_numbers = new BlockingCollection<int>(4);
+			_numbers = new BlockingCollection<int>();
 		
 			Task produceTask = Task.Run(() => ProduceItems());
 			Task consumeTask = Task.Run(() => ConsumeItems());
@@ -47,7 +47,7 @@ namespace ConsoleApp
 
 			while (true)
 			{
-				Thread.Sleep(400);
+				Thread.Sleep(1100);
 				counter += 1;
 				// .Add thread is blocked when collection reached bounded capacity
 				_numbers.Add(counter);
